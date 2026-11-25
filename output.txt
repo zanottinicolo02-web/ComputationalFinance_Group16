@@ -1,0 +1,27 @@
+Emission 2020-01-06: K_put = 44.3225  (zero-cost collar: Call(78) = Put(44.32))
+
+           Moment matching  Monte Carlo MC std err
+Call 78             1.1104       1.1104   0.000025
+Put 44.32           1.1104       1.1103   0.000025
+
+Validation: option on ONE future (F=60, K=62, vol=35%) with a single fixing at maturity.
+The basket collapses to a plain Black-76 option, so MomMatch and MonteCarlo must reproduce Black-76.
+Maturity in years | Black-76 = exact price | MC_SE = MC standard error | z = (MonteCarlo - Black-76)/MC_SE
+
+ Maturity Type  Black-76  MomMatch  MonteCarlo  MC_SE      z
+   0.1000 Call    1.8092    1.8092      1.8116 0.0078 0.3059
+   0.1000  Put    3.8092    3.8092      3.8099 0.0096 0.0694
+   0.2500 Call    3.3275    3.3275      3.3325 0.0137 0.3654
+   0.2500  Put    5.3275    5.3275      5.3291 0.0139 0.1160
+   0.5000 Call    5.0598    5.0598      5.0677 0.0211 0.3752
+   0.5000  Put    7.0598    7.0598      7.0618 0.0184 0.1095
+   1.0000 Call    7.5109    7.5109      7.5227 0.0325 0.3625
+   1.0000  Put    9.5109    9.5109      9.5124 0.0240 0.0601
+
+OK if MomMatch = Black-76 and |z| < 2 (MC within its statistical error).
+
+Backtest 2020-01-06 -> 2021-02-26 (297 days)
+  Mean squared daily P&L : 1.0021e+09 USD^2
+  Final portfolio value  : -810,124 USD
+  Trading costs (bid/ask) : options 493,362 USD | futures 70,192 USD
+  Outputs saved in       : ... /out
