@@ -1,6 +1,6 @@
 variante,metrica
-S1 con banda di 10 contratti sui futures,34715998266.88231
-S2 con delta delle opzioni di Black-76 (senza smile),5783070963.685258
-S4 con delta delle opzioni di Black-76 (senza smile),4272757892.6751666
-S4 con collar statico sul May21 invece che sull'Apr21,1110610233.5973382
-S4 con collar statico da 1M bbl (senza riscalare sulla vega),199087936.37536168
+S1 con banda di 10 contratti sui futures,34612474449.370636
+S2 con delta delle opzioni di Black-76 (senza smile),5744327074.8026285
+S4 con delta delle opzioni di Black-76 (senza smile),4210138405.0237465
+S4 con collar statico sul May21 invece che sull'Apr21,1127358531.6989157
+S4 con collar statico da 1M bbl (senza riscalare sulla vega),178232470.39454615

@@ -6,17 +6,17 @@ Apr21/May21 futures, 1M bbl) and hedges it daily. Ranking metric: (1/T) · Σ P&
 
 ## Results (training: collar on the Feb 2021 average, 6 Jan 2020 → 26 Feb 2021)
 
-K_put = 44.32 USD/bbl (Call 78 = Put K_put = 1.09 USD/bbl).
+K_put = 44.22 USD/bbl (Call 78 = Put K_put = 1.09 USD/bbl). Version v2 (27 Nov): see `CHANGES_v2.md` for what changed and the robustness checks.
 
 | Strategy | Metric (USD²) | Typical daily P&L (RMS) |
 |---|---|---|
-| S0 No hedge | 3.32e11 | 576k |
-| S1 Delta with futures | 3.10e10 | 176k |
-| S2 Delta + vega with one listed option | 1.74e9 | 42k |
-| S3 Static "opposite collar" + delta | 3.89e8 | 20k |
-| **S4 Static opposite collar + delta + vega (chosen)** | **3.59e8** | **19k** |
+| S0 No hedge | 3.31e11 | 575k |
+| S1 Delta with futures | 3.41e10 | 185k |
+| S2 Delta + vega with one listed option | 2.00e9 | 45k |
+| S3 Static "opposite collar" + delta | 2.19e8 | 15k |
+| **S4 Static opposite collar + delta + vega (chosen)** | **1.96e8** | **14k** |
 
-Second check on a collar the code was never tuned on (Dec 2020 average, Feb21/Mar21 futures): S1 4.39e10, S2 1.82e9, **S4 3.14e8**.
+Second check on a collar the code was never tuned on (Dec 2020 average, Feb21/Mar21 futures): S1 4.42e10, S2 1.93e9, **S4 2.01e8**.
 
 Conventions: day 0 (cost of the initial hedges) is included in the metric; futures and options are
 traded in whole lots of 1,000 bbl; buy at ask, sell at bid; futures-style margining; cash earns SOFR.
@@ -25,13 +25,13 @@ traded in whole lots of 1,000 bbl; buy at ask, sell at bid; futures-style margin
 
 1. **Data**: Apr21/May21 futures, listed options and SOFR from the professors' clean dataset.
 2. **Fixing calendar**: 20 business days of Feb 2021 → 19 fixings on Apr21, the last one (26 Feb) on May21 (Q&A of 10 Nov).
-3. **Implied vols**: Black-76 (r = 0) on liquid OTM options; every day a PCHIP smile in log-moneyness ln(K/F) for each leg.
+3. **Implied vols**: Black-76 (r = 0) on liquid OTM options, from settlement prices (the same prices used to mark the hedges); time measured in business days (/252, no variance over weekends); every day a PCHIP smile in log-moneyness ln(K/F) for each leg, with smooth (C¹, tanh-damped) wings outside the quoted strikes.
 4. **Correlation**: EWMA (λ = 0.94) of the two futures' log-returns.
 5. **Pricing**: moment matching (lognormal approximation of the average), validated with Monte Carlo (antithetic + geometric control variate); K_put solved so that the collar costs zero.
 6. **Greeks**: bump and reprice; the smile moves with the futures (sticky moneyness), also for the delta of the listed hedge options.
 7. **Hedging (S4)**:
-   - *static part*: over the first 10 days, sell Apr21 puts at strike 45 and buy Apr21 calls at 80/75 (60%/40%), sized so that their vega equals the vega of the collar's put and call legs; held until 10 days before their expiry (options worth less than their bid-ask are left to expire);
-   - *dynamic part*: one May21 option offsets the remaining vega (rebalanced only if the target moves by more than 5%);
+   - *static part*: sell Apr21 puts at strike 45 and buy Apr21 calls at 80/75 (60%/40%), sized so that their vega equals the vega of the collar's put and call legs. Built over k* = 3–12 days (adaptive: spread cost vs volatility risk), buying more on days when the spread is tight; realigned to the collar vega whenever it is over-hedged by more than 15%; closed gradually over 5 days before expiry (options whose time value is below the bid-ask are left to expire);
+   - *dynamic part*: once the static hedge is built, one May21 option offsets the remaining vega (rebalanced only if the target moves by more than 5%);
    - *delta*: futures on both legs, in whole lots.
 
 ## Files
@@ -71,12 +71,12 @@ python main.py --test               # Oct 2022 test collar, once the test data i
 
 ## Tests: what they are for
 
-`codice/tests/` contains 39 automated checks. They are **not** needed to run the project: they exist so
+`codice/tests/` contains 43 automated checks. They are **not** needed to run the project: they exist so
 that anyone who edits the code can see in ~10 seconds whether something broke.
 
 ```bash
 cd codice
-python -m pytest -q tests           # expected: "39 passed"
+python -m pytest -q tests           # expected: "43 passed"
 ```
 
 They check, among other things:

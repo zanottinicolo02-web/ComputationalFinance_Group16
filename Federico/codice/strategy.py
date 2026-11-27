@@ -69,6 +69,7 @@ class HedgeStrategy:
     static_exit_days: int = 1             # giorni su cui distribuire l'eventuale chiusura anticipata (>1 = uscita graduale)
     static_trim_days: int = 0             # se >0, negli ultimi N giorni riduce le ali statiche sovra-coperte invece di aprire calendar spread
     static_phase_days: int = 1            # giorni di costruzione statica (0 = adattivo k* in funzione di spread e vol ATM)
+    static_opportunistic: bool = False    # costruzione statica: compra di più nei giorni con spread stretto
     static_defer_dynamic: bool = False    # durante la costruzione statica, evita di aprire/chiudere l'opzione dinamica
     static_scale: str = "notional"        # notional = 1M bbl per gamba; collar_vega = stessa vega della gamba del collar
     static_vega_mult: float = 1.0         # con collar_vega: frazione della vega del collar coperta staticamente
@@ -87,10 +88,11 @@ STATIC_DELTA = HedgeStrategy("S3_statica_delta", "Collar opposto statico + delta
                              static_hedge=True, static_phase_days=10)   # senza opzione dinamica: 1M bbl
 STATIC_DELTA_VEGA = HedgeStrategy("S4_statica_delta_vega", "Collar opposto statico + delta + vega",
                                   static_hedge=True, static_phase_days=0, static_defer_dynamic=True,
-                                  static_trim_days=75, static_exit_days=5,
+                                  static_opportunistic=True, static_trim_days=10_000, static_exit_days=5,
                                   static_scale="collar_vega", vega_mode="single", vega_reference="dominant")
-# Costruzione adattiva k* (spread vs vol ATM) + rinvio della dinamica durante la costruzione +
-# riduzione graduale delle ali statiche sovra-coperte negli ultimi 75 giorni + uscita graduale su 5 giorni.
+# Costruzione adattiva k* (spread vs vol ATM), comprando di più nei giorni con spread stretto +
+# rinvio della dinamica durante la costruzione + riallineamento graduale delle ali statiche
+# sovra-coperte per tutta la vita del collar + uscita graduale su 5 giorni.
 
 MAIN_STRATEGIES = [UNHEDGED, DELTA_DAILY, DELTA_VEGA, STATIC_DELTA, STATIC_DELTA_VEGA]
 

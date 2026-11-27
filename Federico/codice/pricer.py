@@ -59,7 +59,7 @@ from scipy.stats import norm
 from config import CollarConfig
 from corr import rho_on
 from data import MarketData
-from fixing_calendar import FixingSchedule, payment_date
+from fixing_calendar import FixingSchedule, payment_date, year_frac
 
 
 # ------------------------------------------------------------ stato del mercato
@@ -96,7 +96,7 @@ def build_state(date, md: MarketData, sched: FixingSchedule, smiles: dict,
     known = tab[tab.fixing_date <= t]
     known_sum = float(sum(wide.at[d, c] for d, c in zip(known.fixing_date, known.contract)))
     fut = tab[tab.fixing_date > t]
-    theta = ((fut.fixing_date - t).dt.days / 365.0).to_numpy(float)
+    theta = np.atleast_1d(year_frac(t, fut.fixing_date.to_numpy(), cfg.model.weekend_weight)).astype(float)
     leg = np.where(fut.contract.to_numpy() == legs[0], 0, 1)
 
     sm = tuple(smiles.get((t, c)) for c in legs)

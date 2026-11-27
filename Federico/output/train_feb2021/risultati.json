@@ -1,9 +1,9 @@
 {
   "collar": "train_feb2021",
   "etichetta": "Training (febbraio 2021)",
-  "k_put": 44.21675036412195,
+  "k_put": 44.22231644845629,
   "k_call": 78.0,
-  "prezzo_call_per_bbl": 1.0892545515268874,
+  "prezzo_call_per_bbl": 1.0912902071874775,
   "giorni": 297,
   "fixing": {
     "n1": 19,
@@ -17,109 +17,109 @@
   "strategie": {
     "S0_nessuna": {
       "label": "Nessuna copertura",
-      "metrica": 330529283512.292,
-      "rms": 574916.7622467552,
+      "metrica": 330622590344.4368,
+      "rms": 574997.9046435185,
       "costi": -0.0,
       "valore_finale": 0.0,
-      "max_pnl": 3969031.7284734123
+      "max_pnl": 3972119.727101056
     },
     "S1_delta": {
       "label": "Delta con futures",
-      "metrica": 34173731989.746246,
-      "rms": 184861.38588073564,
-      "costi": 105014.9999999993,
-      "valore_finale": 482190.98438808304,
-      "max_pnl": 1501925.2962776874
+      "metrica": 34060204123.587116,
+      "rms": 184554.0682932433,
+      "costi": 104964.9999999993,
+      "valore_finale": 462596.5473404426,
+      "max_pnl": 1497282.708662616
     },
     "S2_delta_vega": {
       "label": "Delta + vega con un'opzione",
-      "metrica": 2022366798.6631036,
-      "rms": 44970.732689862896,
-      "costi": 733554.9999999993,
-      "valore_finale": -991892.7461015447,
-      "max_pnl": 345426.1491392045
+      "metrica": 1996797432.5727913,
+      "rms": 44685.53941235119,
+      "costi": 730464.9999999993,
+      "valore_finale": -1012255.5591607142,
+      "max_pnl": 337173.36541461153
     },
     "S3_statica_delta": {
       "label": "Collar opposto statico + delta",
-      "metrica": 223833613.42047402,
-      "rms": 14961.069929001536,
-      "costi": 349404.9999999994,
-      "valore_finale": -405647.517275917,
-      "max_pnl": 81286.53074141691
+      "metrica": 219447450.95116514,
+      "rms": 14813.758839375141,
+      "costi": 348879.9999999995,
+      "valore_finale": -374948.5788261639,
+      "max_pnl": 84618.46904117172
     },
     "S4_statica_delta_vega": {
       "label": "Collar opposto statico + delta + vega",
-      "metrica": 217837063.88281095,
-      "rms": 14759.304315678668,
-      "costi": 502014.99999999953,
-      "valore_finale": -704599.3032253617,
-      "max_pnl": 87695.54604754952
+      "metrica": 196139567.43337837,
+      "rms": 14004.98366415964,
+      "costi": 492889.99999999965,
+      "valore_finale": -643464.7924970754,
+      "max_pnl": 97168.28389257193
     }
   },
-  "validazione_mc_max_diff_in_se": 102.41334952703725,
-  "validazione_mc_max_diff_cent": 0.189001425889182,
+  "validazione_mc_max_diff_in_se": 87.7872973677328,
+  "validazione_mc_max_diff_cent": 0.16320260327074843,
   "sensibilita_vega_statica": [
     {
       "quota_vega_statica": 0.7,
-      "metrica": 415855840.4910332,
-      "costi": 493139.99999999965
+      "metrica": 388676715.6824385,
+      "costi": 492009.9999999996
     },
     {
       "quota_vega_statica": 0.8,
-      "metrica": 319807434.0382268,
-      "costi": 491034.99999999965
+      "metrica": 297403109.1341368,
+      "costi": 484139.9999999997
     },
     {
       "quota_vega_statica": 0.9,
-      "metrica": 256461886.3103114,
-      "costi": 487309.99999999977
+      "metrica": 229765736.687602,
+      "costi": 475044.99999999977
     },
     {
       "quota_vega_statica": 1.0,
-      "metrica": 217837063.88281095,
-      "costi": 502014.99999999953
+      "metrica": 196139567.43337837,
+      "costi": 492889.99999999965
     },
     {
       "quota_vega_statica": 1.1,
-      "metrica": 202126185.5619013,
-      "costi": 539539.9999999998
+      "metrica": 188776006.01219392,
+      "costi": 580914.9999999997
     },
     {
       "quota_vega_statica": 1.2,
-      "metrica": 225867157.1809656,
-      "costi": 620559.9999999998
+      "metrica": 211506207.97544935,
+      "costi": 603174.9999999997
     }
   ],
   "sensibilita_giorni_statica": [
     {
       "giorni": 1,
-      "metrica": 462849806.1539778,
-      "costi": 522144.99999999977
+      "metrica": 449845900.8088164,
+      "costi": 517379.9999999999
     },
     {
       "giorni": 5,
-      "metrica": 217837063.88281095,
-      "costi": 502014.99999999953
+      "metrica": 196139567.43337837,
+      "costi": 492889.99999999965
     },
     {
       "giorni": 10,
-      "metrica": 205503457.71685907,
-      "costi": 490389.99999999953
+      "metrica": 185869530.34019274,
+      "costi": 455979.99999999953
     },
     {
       "giorni": 20,
-      "metrica": 208751208.2917932,
-      "costi": 460134.99999999953
+      "metrica": 194727064.7418509,
+      "costi": 456529.99999999953
     },
     {
       "giorni": 40,
-      "metrica": 230875207.09103438,
-      "costi": 419924.9999999996
+      "metrica": 201190182.1763467,
+      "costi": 408034.9999999996
     },
     {
       "giorni": 60,
-      "metrica": 1420202773.9059806,
-      "costi": 440149.9999999995
+      "metrica": 340552932.65739983,
+      "costi": 411839.9999999994
     }
   ],
   "giorni_statica_altre_emissioni": [
@@ -127,170 +127,170 @@
       "emissione": "2020-03-02",
       "k_call": 66.0,
       "giorni": 10,
-      "metrica": 2815504055.4969926
+      "metrica": 3471868510.009663
     },
     {
       "emissione": "2020-03-02",
       "k_call": 66.0,
       "giorni": 20,
-      "metrica": 6838577499.634589
+      "metrica": 7176262283.393678
     },
     {
       "emissione": "2020-03-02",
       "k_call": 66.0,
       "giorni": 40,
-      "metrica": 11164069022.6224
+      "metrica": 11337818009.40067
     },
     {
       "emissione": "2020-03-02",
       "k_call": 66.0,
       "giorni": 60,
-      "metrica": 14556090176.35608
+      "metrica": 14630759253.050667
     },
     {
       "emissione": "2020-04-01",
       "k_call": 46.0,
       "giorni": 10,
-      "metrica": 656342368.611041
+      "metrica": 624243122.5337639
     },
     {
       "emissione": "2020-04-01",
       "k_call": 46.0,
       "giorni": 20,
-      "metrica": 1245732641.1605783
+      "metrica": 1441130705.9066222
     },
     {
       "emissione": "2020-04-01",
       "k_call": 46.0,
       "giorni": 40,
-      "metrica": 1844042859.5075614
+      "metrica": 1823128786.397833
     },
     {
       "emissione": "2020-04-01",
       "k_call": 46.0,
       "giorni": 60,
-      "metrica": 2195241899.4389505
+      "metrica": 2258507968.8924994
     },
     {
       "emissione": "2020-06-01",
       "k_call": 51.0,
       "giorni": 10,
-      "metrica": 294777626.0121713
+      "metrica": 268752137.7839546
     },
     {
       "emissione": "2020-06-01",
       "k_call": 51.0,
       "giorni": 20,
-      "metrica": 290542624.7061313
+      "metrica": 259403550.36973578
     },
     {
       "emissione": "2020-06-01",
       "k_call": 51.0,
       "giorni": 40,
-      "metrica": 355103936.4344536
+      "metrica": 303840905.6370431
     },
     {
       "emissione": "2020-06-01",
       "k_call": 51.0,
       "giorni": 60,
-      "metrica": 528000132.46863294
+      "metrica": 428617959.41730136
     }
   ],
   "smile_parabola": {
-    "k_put": 43.63206395238216,
-    "S1_delta": 33713257260.96854,
-    "S4_statica_delta_vega": 576375422.619581
+    "k_put": 43.641704934648196,
+    "S1_delta": 33691110250.98377,
+    "S4_statica_delta_vega": 593727564.1714432
   },
   "sensibilita_banda_delta": [
     {
       "banda": 0,
-      "metrica": 34173731989.746246,
-      "costi": 105014.9999999993,
-      "scambi": 434
+      "metrica": 34060204123.587116,
+      "costi": 104964.9999999993,
+      "scambi": 435
     },
     {
       "banda": 5,
-      "metrica": 34496771316.41661,
-      "costi": 98719.99999999936,
+      "metrica": 34418318440.71058,
+      "costi": 98619.99999999933,
       "scambi": 219
     },
     {
       "banda": 10,
-      "metrica": 34715998266.88231,
-      "costi": 92109.99999999919,
-      "scambi": 167
+      "metrica": 34612474449.370636,
+      "costi": 92544.99999999917,
+      "scambi": 166
     },
     {
       "banda": 25,
-      "metrica": 35222776960.06514,
-      "costi": 64889.999999999694,
-      "scambi": 81
+      "metrica": 35317931262.91613,
+      "costi": 68874.9999999997,
+      "scambi": 85
     },
     {
       "banda": 50,
-      "metrica": 45210461046.38949,
-      "costi": 51444.99999999903,
-      "scambi": 38
+      "metrica": 40405808524.46678,
+      "costi": 52449.99999999901,
+      "scambi": 39
     },
     {
       "banda": 100,
-      "metrica": 45055451795.20223,
-      "costi": 28080.000000000233,
+      "metrica": 45006995362.78208,
+      "costi": 28090.00000000023,
       "scambi": 15
     }
   ],
   "sensibilita_banda_vega": [
     {
       "banda_vega": 0.0,
-      "metrica": 216838169.52587515,
-      "costi": 523754.9999999997,
-      "scambi_opzioni": 280
+      "metrica": 194984950.90799776,
+      "costi": 513289.99999999965,
+      "scambi_opzioni": 278
     },
     {
       "banda_vega": 0.05,
-      "metrica": 217837063.88281095,
-      "costi": 502014.99999999953,
-      "scambi_opzioni": 151
+      "metrica": 196139567.43337837,
+      "costi": 492889.99999999965,
+      "scambi_opzioni": 156
     },
     {
       "banda_vega": 0.1,
-      "metrica": 216031580.80202317,
-      "costi": 487669.99999999953,
-      "scambi_opzioni": 114
+      "metrica": 195789990.45607084,
+      "costi": 479524.99999999965,
+      "scambi_opzioni": 121
     },
     {
       "banda_vega": 0.25,
-      "metrica": 228956857.69496354,
-      "costi": 451094.9999999996,
-      "scambi_opzioni": 69
+      "metrica": 202376166.34281808,
+      "costi": 460529.9999999997,
+      "scambi_opzioni": 82
     },
     {
       "banda_vega": 0.5,
-      "metrica": 254226245.33138227,
-      "costi": 425894.9999999997,
-      "scambi_opzioni": 51
+      "metrica": 230309530.38719532,
+      "costi": 426404.9999999997,
+      "scambi_opzioni": 55
     }
   ],
   "varianti": [
     {
       "variante": "S1 con banda di 10 contratti sui futures",
-      "metrica": 34715998266.88231
+      "metrica": 34612474449.370636
     },
     {
       "variante": "S2 con delta delle opzioni di Black-76 (senza smile)",
-      "metrica": 5783070963.685258
+      "metrica": 5744327074.8026285
     },
     {
       "variante": "S4 con delta delle opzioni di Black-76 (senza smile)",
-      "metrica": 4272757892.6751666
+      "metrica": 4210138405.0237465
     },
     {
       "variante": "S4 con collar statico sul May21 invece che sull'Apr21",
-      "metrica": 1110610233.5973382
+      "metrica": 1127358531.6989157
     },
     {
       "variante": "S4 con collar statico da 1M bbl (senza riscalare sulla vega)",
-      "metrica": 199087936.37536168
+      "metrica": 178232470.39454615
     }
   ]
 }

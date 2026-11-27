@@ -49,7 +49,16 @@ def test_arbitrage_bounds_give_nan():
 
 
 # ------------------------------------------------------------------- dati reali
-def test_emission_values(iv):
+@pytest.fixture(scope="module")
+def iv_mid_calendar():
+    """Vol al mid con tempo di calendario: la convenzione su cui sono stati fissati i valori attesi."""
+    from dataclasses import replace
+    cfg = replace(TRAIN, model=replace(TRAIN.model, smile_price="mid", weekend_weight=1.0))
+    return compute_implied_vols(load_market_data(cfg), cfg)
+
+
+def test_emission_values(iv_mid_calendar):
+    iv = iv_mid_calendar
     e = iv[(iv.date == TRAIN.emission_date) & (iv.contract == "COJ21") & iv.keep].set_index(["strike", "cp"])
     assert e.loc[(65.0, "C"), "iv_mid"] == pytest.approx(0.2379, abs=1e-4)
     assert e.loc[(45.0, "P"), "iv_mid"] == pytest.approx(0.2880, abs=1e-4)
@@ -78,8 +87,8 @@ def test_every_backtest_day_has_options(iv):
     assert set(days) <= set(k.date)
 
 
-def test_atm_vol_emission(iv):
-    a = atm_vol(iv)
+def test_atm_vol_emission(iv_mid_calendar):
+    a = atm_vol(iv_mid_calendar)
     assert a.loc[TRAIN.emission_date, "COJ21"] == pytest.approx(0.249, abs=2e-3)
 
 

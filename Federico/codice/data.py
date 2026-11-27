@@ -22,6 +22,7 @@ import numpy as np
 import pandas as pd
 
 from config import CollarConfig
+from fixing_calendar import year_frac
 
 
 @dataclass
@@ -90,7 +91,7 @@ def load_market_data(cfg: CollarConfig) -> MarketData:
     opt["mid"] = (opt["bid"] + opt["ask"]) / 2
     opt["spread"] = opt["ask"] - opt["bid"]      # NB: non usare la colonna option_spread del file
     opt["ttm_days"] = opt["ttm_days"].astype("float64")
-    opt["ttm"] = opt["ttm_days"] / 365.0
+    opt["ttm"] = year_frac(opt["date"], opt["option_expiry"], cfg.model.weekend_weight)
     opt = opt[["date", "contract", "option_expiry", "option_ticker", "strike", "cp",
                "settle", "bid", "ask", "mid", "spread", "F", "ttm_days", "ttm"]]
     opt = opt.sort_values(["date", "contract", "cp", "strike"]).reset_index(drop=True)

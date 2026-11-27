@@ -1,9 +1,9 @@
 {
   "collar": "prova_dic2020",
   "etichetta": "Prova generale (dicembre 2020)",
-  "k_put": 44.524286695126165,
+  "k_put": 44.52426303842847,
   "k_call": 79.0,
-  "prezzo_call_per_bbl": 0.9111899950855427,
+  "prezzo_call_per_bbl": 0.911740207265171,
   "giorni": 257,
   "fixing": {
     "n1": 16,
@@ -17,43 +17,43 @@
   "strategie": {
     "S0_nessuna": {
       "label": "Nessuna copertura",
-      "metrica": 470778492155.617,
-      "rms": 686132.9988825906,
+      "metrica": 470301237734.79987,
+      "rms": 685785.1250463222,
       "costi": -0.0,
       "valore_finale": 0.0,
-      "max_pnl": 4401278.949999487
+      "max_pnl": 4399174.896621674
     },
     "S1_delta": {
       "label": "Delta con futures",
-      "metrica": 44235028970.385704,
-      "rms": 210321.25182773542,
-      "costi": 92409.99999999833,
-      "valore_finale": 1326951.846946158,
-      "max_pnl": 1825164.4380575148
+      "metrica": 44173547193.283844,
+      "rms": 210175.03941544498,
+      "costi": 92319.99999999828,
+      "valore_finale": 1323454.5048576058,
+      "max_pnl": 1823060.1908840844
     },
     "S2_delta_vega": {
       "label": "Delta + vega con un'opzione",
-      "metrica": 1967165065.2525947,
-      "rms": 44352.7345859598,
-      "costi": 578379.9999999987,
-      "valore_finale": -677539.6758858246,
-      "max_pnl": 385761.60279609775
+      "metrica": 1933747177.6911929,
+      "rms": 43974.39229473436,
+      "costi": 579319.9999999986,
+      "valore_finale": -687236.765486334,
+      "max_pnl": 379577.19254360674
     },
     "S3_statica_delta": {
       "label": "Collar opposto statico + delta",
-      "metrica": 522626219.28381324,
-      "rms": 22861.019646634602,
-      "costi": 365559.99999999907,
-      "valore_finale": -315115.3415568672,
-      "max_pnl": 167472.79499887337
+      "metrica": 503515302.44000834,
+      "rms": 22439.14665133254,
+      "costi": 364654.99999999924,
+      "valore_finale": -295426.45409707114,
+      "max_pnl": 160125.59759685444
     },
     "S4_statica_delta_vega": {
       "label": "Collar opposto statico + delta + vega",
-      "metrica": 251399473.93809193,
-      "rms": 15855.581791220779,
-      "costi": 442809.9999999994,
-      "valore_finale": -615539.8884647717,
-      "max_pnl": 81231.17675820546
+      "metrica": 201099996.29023486,
+      "rms": 14180.973037497633,
+      "costi": 422009.99999999953,
+      "valore_finale": -561185.9672473037,
+      "max_pnl": 64950.648842771596
     }
   }
 }

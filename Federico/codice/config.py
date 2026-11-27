@@ -50,7 +50,13 @@ class ModelConfig:
     # C¹ continua: evita salti di delta sul bordo; 0.0 = estrapolazione piatta netta)
     smile_method: str = "pchip"
     smile_min_points: int = 3       # con meno punti si usa lo smile dell'altra gamba
-    wing_decay: float = 0.05        # raggio (in log-moneyness) di smorzamento C¹ sulle ali
+    wing_decay: float = 0.05
+    # prezzo da cui si calibra lo smile: "settle" (gli stessi prezzi con cui si marcano ogni giorno
+    # le opzioni di copertura) oppure "mid" (media bid-ask)
+    smile_price: str = "settle"
+    # tempo di volatilità: 0 = solo giorni di borsa (/252, nel weekend la varianza non si accumula),
+    # 1 = giorni di calendario (/365); valori intermedi pesano il weekend come frazione di giorno
+    weekend_weight: float = 0.0        # raggio (in log-moneyness) di smorzamento C¹ sulle ali
     # correlazione: media mobile esponenziale (EWMA) dei log-rendimenti dei due futures
     ewma_lambda: float = 0.94
     rho_prior: float = 0.99         # valore usato finché ci sono meno di corr_min_obs rendimenti

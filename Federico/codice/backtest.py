@@ -39,7 +39,7 @@ import pandas as pd
 from config import CollarConfig
 from corr import ewma_correlation
 from data import MarketData, load_market_data
-from fixing_calendar import FixingSchedule, build_fixing_schedule
+from fixing_calendar import FixingSchedule, build_fixing_schedule, year_frac
 from greeks import CollarGreeks, collar_greeks, option_delta, option_delta_smile, option_vega_point
 from pricer import MarketState, build_state, collar_value, solve_k_put
 from strategy import HedgeStrategy
@@ -140,7 +140,7 @@ def _option_quote(ctx: Context, d: pd.Timestamp, o: dict, state: MarketState):
         exp = o.get("expiry")
         if exp is None or pd.isna(exp):
             return np.nan, np.nan, np.nan, np.nan
-        ttm = (pd.Timestamp(exp) - d).days / 365.0
+        ttm = year_frac(d, exp, ctx.cfg.model.weekend_weight)
         if ttm <= 0:                              # scaduta: vale il payoff
             payoff = max(F - strike, 0.0) if is_call else max(strike - F, 0.0)
             return float(payoff), np.nan, 0.0, o["vol"]
@@ -330,9 +330,24 @@ def run_backtest(ctx: Context, strat: HedgeStrategy) -> BacktestResult:
                 static.append(o)
         if t < k_phase and not is_last:
             for o in static:
-                step = np.round(o["target"] * (t + 1) / k_phase / lot) * lot
+                if t == 0:
+                    o["sp0"] = o["spread"]
+                sched = np.round(o["target"] * (t + 1) / k_phase / lot) * lot
                 sp = _option_quote(ctx, d, o, st)[1] if t > 0 else o["spread"]
-                if step != o["qty"] and np.isfinite(sp) and o["ttm"] * 365 >= strat.static_close_days:
+                if not (np.isfinite(sp) and o["ttm"] * 365 >= strat.static_close_days):
+                    continue
+                step = sched
+                if strat.static_opportunistic and t < k_phase - 1:
+                    # esecuzione opportunistica: lo spread di una stessa opzione cambia molto da un
+                    # giorno all'altro (es. put 45 Apr21: da 0,40 a 0,10 nelle prime settimane). Nei
+                    # giorni in cui è più stretto che al giorno 0 si compra di più (fino al doppio
+                    # della rata), in quelli in cui è più largo solo quanto previsto dal piano.
+                    # Non si resta mai indietro rispetto al piano e l'ultimo giorno si completa.
+                    mult = float(np.clip(o["sp0"] / max(sp, 1e-6), 1.0, 2.0))
+                    want = o["qty"] + o["target"] / k_phase * mult
+                    lo_q, hi_q = sorted((sched, o["target"]))
+                    step = np.round(np.clip(want, lo_q, hi_q) / lot) * lot
+                if step != o["qty"]:
                     cost += trade_option(o, step, sp)
 
         # Riduzione delle ali statiche sovra-coperte negli ultimi static_trim_days giorni:

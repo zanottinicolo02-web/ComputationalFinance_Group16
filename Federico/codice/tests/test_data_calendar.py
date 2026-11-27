@@ -111,3 +111,11 @@ def test_apr21_after_option_expiry(md):
     wide = md.futures_wide("settle")
     assert wide.at[pd.Timestamp("2021-02-24"), "COJ21"] == pytest.approx(67.04)
     assert wide.at[pd.Timestamp("2021-02-26"), "COJ21"] == pytest.approx(66.13)
+
+
+def test_year_frac_business_days():
+    """Con weekend_weight = 0 il tempo scorre solo nei giorni di borsa; con 1 è ACT/365."""
+    from fixing_calendar import year_frac
+    fri, mon = pd.Timestamp("2020-01-10"), pd.Timestamp("2020-01-13")
+    assert year_frac(fri, mon, 0.0) == pytest.approx(1 / 252)
+    assert year_frac(fri, mon, 1.0) == pytest.approx(3 / 365)

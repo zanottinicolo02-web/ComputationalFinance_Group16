@@ -1,3 +1,5 @@
+> **Note (27 Nov):** the numbers in this document refer to the version of 26 Nov (training 2.18e8). Version v2 reaches **1.96e8** on the training set and is better on 8 of 10 test collars: see `CHANGES_v2.md`.
+
 # Federico's Hedging Strategy (`S4`) — Detailed Technical Documentation
 
 **Project:** Computational Finance 2025/2026 — Calibration and Hedging Lab (Group 16)  

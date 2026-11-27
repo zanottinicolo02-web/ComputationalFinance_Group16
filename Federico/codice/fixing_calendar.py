@@ -159,3 +159,23 @@ def payment_date(cfg: CollarConfig, schedule: FixingSchedule) -> pd.Timestamp:
         return schedule.last_fixing
     return business_days(schedule.last_fixing, schedule.last_fixing + pd.Timedelta(days=30),
                          cfg.holidays)[cfg.payment_lag_bdays]
+
+
+def year_frac(start, end, weekend_weight: float = 1.0):
+    """Anni tra start (oggi, dopo la chiusura) ed end, vettoriale.
+
+    weekend_weight = 1: giorni di calendario / 365 (ACT/365).
+    weekend_weight = 0: solo giorni di borsa (/252): nel weekend il prezzo non si muove,
+    quindi il tempo "di volatilità" non scorre.
+    Valori intermedi pesano sabato e domenica come frazione di un giorno di borsa.
+    """
+    s = np.asarray(pd.to_datetime(start), dtype="datetime64[D]")
+    e = np.asarray(pd.to_datetime(end), dtype="datetime64[D]")
+    cal = (e - s).astype("timedelta64[D]").astype(float)
+    if weekend_weight >= 1.0:
+        out = cal / 365.0
+    else:
+        one = np.timedelta64(1, "D")
+        bus = np.busday_count(s + one, e + one).astype(float)
+        out = (bus + weekend_weight * (cal - bus)) / (252.0 + weekend_weight * 113.0)
+    return float(out) if np.ndim(out) == 0 else out

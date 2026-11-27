@@ -125,6 +125,14 @@ def compute_implied_vols(md: MarketData, cfg: CollarConfig,
     for col, px in (("iv_mid", "mid"), ("iv_bid", "bid"), ("iv_ask", "ask")):
         o[col] = implied_vol(o[px].to_numpy(), o.F.to_numpy(), o.strike.to_numpy(),
                              o.ttm.to_numpy(), is_call)
+    if cfg.model.smile_price == "settle":
+        # smile dai prezzi di settlement: sono gli stessi prezzi con cui si valutano ogni giorno
+        # le opzioni di copertura (margini), quindi collar e coperture sono marcati in modo coerente.
+        # Dove il settlement manca o non dà una vol si tiene quella al mid.
+        iv_set = implied_vol(o["settle"].to_numpy(dtype=float), o.F.to_numpy(), o.strike.to_numpy(),
+                             o.ttm.to_numpy(), is_call)
+        o["iv_quote_mid"] = o["iv_mid"]
+        o["iv_mid"] = np.where(np.isfinite(iv_set), iv_set, o["iv_mid"])
 
     # filtri, nell'ordine: il motivo registrato è il primo che fallisce
     reason = pd.Series("", index=o.index, dtype=object)
